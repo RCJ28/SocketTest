@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SocketIO Chat</title>
+  <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+</head>
+<body>
+  <h2>Flask-SocketIO Chat</h2>
+  
+  <div id="messages"></div>
+  <input type="text" id="msgInput" placeholder="Enter Python code (e.g., result = df.shape)" />
+  <button onclick="sendMessage()">Send</button>
+
+  <script>
+    const socket = io();
+
+    socket.on('connect', () => {
+      appendMessage("Connected to server.");
+    });
+
+    socket.on('response', (data) => {
+      appendMessage("Server: " + data.msg);
+    });
+
+    function sendMessage() {
+      const msg = document.getElementById("msgInput").value;
+      socket.emit('user_message', { msg: msg });
+      appendMessage("You: " + msg);
+      document.getElementById("msgInput").value = '';
+    }
+
+    function appendMessage(msg) {
+      const div = document.getElementById("messages");
+      const p = document.createElement("p");
+      p.textContent = msg;
+      div.appendChild(p);
+    }
+  </script>
+</body>
+</html>
