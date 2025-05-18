@@ -4,3 +4,4 @@ openpyxl
 flask-session
 flask-socketio
 eventlet
+gunicorn
