@@ -1,0 +1,6 @@
+flask
+pandas
+openpyxl
+flask-session
+flask-socketio
+eventlet
